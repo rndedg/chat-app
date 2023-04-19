@@ -9,6 +9,7 @@
 /* Room and users component */
 .roomAndUsersColumn {
   border-right: 1px solid #dfdfdf;
+  background-color: rgb(0, 24, 111);
 }
 .roomTitle {
   margin-bottom: 60px;
@@ -37,7 +38,7 @@
   padding: 10px 10px 10px 40px;
 }
 .message {
-  background: rgb(0, 24, 111);
+  background: rgba(0, 24, 111, 0.788);
   border-radius: 6px;
   margin-bottom: 24px;
   max-width: 600px;
