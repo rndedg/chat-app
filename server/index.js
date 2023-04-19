@@ -4,6 +4,11 @@ const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
 
+require('dotenv').config();
+console.log(process.env.HARPERDB_URL);
+const harperSaveMessage = require('./services/harper_save_message');
+
+
 app.use(cors());
 
 const server = http.createServer(app);
@@ -46,6 +51,14 @@ io.on('connection', (socket) => {
     socket.to(room).emit('chatroom_users', chatRoomUsers);
     socket.emit('chatroom_users', chatRoomUsers);
   });
+
+  socket.on('send_message', (data) => {
+    const { message, username, room, __createdtime__ } = data;
+    io.in(room).emit('receive_message', data);
+    harperSaveMessage(message, username, room, __createdtime__)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  })
 });
 
 app.get('/', (req, res) => {
